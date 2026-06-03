@@ -55,3 +55,56 @@ validar_movimiento:
 .bloqueado
     xor rax, rax    ;retorna 0
     ret
+
+; int detectar_objeto(char* mapa, int cols, int fila, int col, char obj)
+; RCX = mapa, RDX = cols, R8 = fila, R9 = col, [RSP+40] = obj
+; Retorna 1 si el objeto está en esa celda, 0 si no
+
+detectar_objeto:
+    ; El 5to parámetro no cabe en registro, va en la pila
+    ; En Windows x64: [RSP+40] después del prólogo
+    movzx r10, byte [rsp+40]  ; r10 = obj (5to parámetro)
+
+    ; Calcular índice: fila * cols + col
+    mov  rax, r8         ; rax = fila
+    imul rax, rdx        ; rax = fila * cols
+    add  rax, r9         ; rax = fila * cols + col
+
+    ; Obtener carácter en esa posición
+    movzx r11, byte [rcx + rax]  ; r11 = mapa[índice]
+
+    ; Comparar con el objeto buscado
+    cmp  r11, r10
+    je   .encontrado
+
+    xor  rax, rax        ; no encontrado → 0
+    ret
+
+.encontrado:
+    mov  rax, 1          ; encontrado → 1
+    ret
+
+; int contar_celdas_libres(char* mapa, int total)
+; RCX = mapa, RDX = total
+; Retorna en RAX el número de celdas libres ('.')
+
+contar_celdas_libres:
+    xor  rax, rax        ; contador = 0
+    xor  r9,  r9         ; índice i = 0
+
+.loop:
+    cmp  r9, rdx         ; i >= total?
+    jge  .fin            ; si sí, terminamos
+
+    movzx r10, byte [rcx + r9]  ; r10 = mapa[i]
+    cmp  r10, '.'        ; ¿es celda libre?
+    jne  .siguiente      ; no → saltar
+
+    inc  rax             ; sí → contador++
+
+.siguiente:
+    inc  r9              ; i++
+    jmp  .loop
+
+.fin:
+    ret
