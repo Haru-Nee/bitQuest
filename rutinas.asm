@@ -108,3 +108,34 @@ contar_celdas_libres:
 
 .fin:
     ret
+; int calcular_puntaje(int monedas, int pasos, int niveles)
+; RCX = monedas, RDX = pasos, R8 = niveles
+; Fórmula: (monedas * 100) - (pasos * 2) + (niveles * 500)
+; Retorna en RAX el puntaje final
+
+calcular_puntaje:
+    ; monedas * 100
+    mov  rax, rcx        ; rax = monedas
+    imul rax, 100        ; rax = monedas * 100
+
+    ; pasos * 2
+    mov  r9,  rdx        ; r9 = pasos
+    imul r9,  2          ; r9 = pasos * 2
+
+    ; restar pasos
+    sub  rax, r9         ; rax = (monedas * 100) - (pasos * 2)
+
+    ; niveles * 500
+    mov  r10, r8         ; r10 = niveles
+    imul r10, 500        ; r10 = niveles * 500
+
+    ; sumar niveles
+    add  rax, r10        ; rax = resultado final
+
+    ; evitar puntaje negativo
+    cmp  rax, 0
+    jge  .fin
+    xor  rax, rax        ; si es negativo, retorna 0
+
+.fin:
+    ret
