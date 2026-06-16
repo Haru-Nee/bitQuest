@@ -30,7 +30,7 @@ Para no volvernos locos con el código, decidimos modularizar el proyecto de la 
 
 El proyecto está diseñado para compilarse en Windows usando **NASM** y **GCC (MinGW)**. 
 
-Los comandos que usamos en la terminal para armar el ejecutable son:
+Los pasos que seguiremos para armar el ejecutable son:
 
 1. Compilar el archivo de ensamblador a objeto: usamos el archivo build.bat
 2. Ejecutar el .exe
