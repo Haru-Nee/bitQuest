@@ -4,7 +4,7 @@ Este es un juego de exploración de mazmorras en 2D que corre directamente en la
 
 ---
 
-## 🛠️ Organización del Código
+## Organización del Código
 
 Para no volvernos locos con el código, decidimos modularizar el proyecto de la siguiente manera:
 
@@ -18,7 +18,7 @@ Para no volvernos locos con el código, decidimos modularizar el proyecto de la 
 
 ---
 
-## 🎮 Mecánicas del Juego
+## Mecánicas del Juego
 
 *   El jugador se mueve usando las teclas **`W`, `A`, `S`, `D`**.
 *   Se puede salir de la partida en cualquier momento presionando **`Q`**.
@@ -26,7 +26,7 @@ Para no volvernos locos con el código, decidimos modularizar el proyecto de la 
 
 ---
 
-## 💻 Compilación y Ejecución
+## Compilación y Ejecución
 
 El proyecto está diseñado para compilarse en Windows usando **NASM** y **GCC (MinGW)**. 
 
